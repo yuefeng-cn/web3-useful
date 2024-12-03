@@ -1,4 +1,5 @@
 import FundFlow from '../components/FundFlow';
+import Button from '../components/Button';
 
 export default function Home() {
   // 示例数据
@@ -68,6 +69,7 @@ export default function Home() {
             <div className="flex gap-2">
               <p className="text-gray-600">To:</p>
               <p className="font-medium truncate">0xijkl...mnop</p>
+              <Button toAddress="0xijkl...mnop" />
             </div>
           </div>
         </div>
