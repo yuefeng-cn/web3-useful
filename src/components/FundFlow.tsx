@@ -1,13 +1,13 @@
 "use client";
-import { useState, useCallback } from "react";
 import {
   ReactFlow,
   Controls,
   Background,
-  applyNodeChanges,
-  applyEdgeChanges,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import { initialNodes, initialEdges } from './nodes-edges.js';
+
+
 
 interface Flow {
   from: string;
@@ -18,13 +18,46 @@ interface Flow {
 }
 
 export function buildNodes(flows: Flow[]) {
-  return flows.map((flow) => ({
+  let i = 0;
+  const nodes = flows.map((flow) => ({
     id: flow.from,
     data: { label: flow.from },
-    position: { x: 0, y: 0 },
-    type: "input",
+    position: { x: (i++) * 200, y: 0 },
+    sourcePosition: "right",
+    targetPosition: "left",
   }));
+
+  const lastFlow = flows[flows.length - 1];
+  const endNode = {
+    id: lastFlow.to,
+    data: { label: lastFlow.to },
+    position: { x: i * 200, y: 0 },
+    sourcePosition: "right",
+    targetPosition: "left",
+  }
+  if (nodes[0].id !== endNode.id) {
+    nodes.push(endNode)
+  }
+  return nodes
 }
+
+// const flows = [
+//   {
+//     from: "A",
+//     to: "B",
+//     amount: 100,
+//     tokenName: 'USDT',
+//     token: '0xusdt'
+//   },
+//   {
+//     from: "B",
+//     to: "A",
+//     amount: 9,
+//     tokenName: 'USDT',
+//     token: '0xusdt'
+//   },
+// ];
+
 
 export function buildEdges(flows: Flow[]) {
   return flows.map((flow) => ({
@@ -32,52 +65,26 @@ export function buildEdges(flows: Flow[]) {
     source: flow.from,
     target: flow.to,
     label: `${flow.amount} ${flow.tokenName}`,
-    type: "step",
-  }));
+    animated: true,
+    style: { stroke: "red" },
+  }))
 }
+// interface FundFlowProps {
+//   flows: Flow[]
+// }
 
-interface FundFlowProps {
-  flows: Flow[]
-}
 
-// const initialNodes = [
-//   {
-//     id: "1",
-//     data: { label: "Hello" },
-//     position: { x: 0, y: 0 },
-//     type: "input",
-//   },
-//   {
-//     id: "2",
-//     data: { label: "World" },
-//     position: { x: 100, y: 100 },
-//   },
-// ];
-
-export default function FundFlow({flows}: FundFlowProps) {
-  console.log(flows);
-  const initialNodes = buildNodes(flows)
-  const initialEdges = buildEdges(initialNodes);
-  const [nodes, setNodes] = useState(flows);
-  const [edges, setEdges] = useState(initialEdges);
-
-  const onNodesChange = useCallback(
-    (changes: any) => setNodes((nds) => applyNodeChanges(changes, nds)),
-    []
-  );
-  const onEdgesChange = useCallback(
-    (changes: any) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-    []
-  );
+export default function FundFlow() {
+  const nodes = initialNodes
+  const edges = initialEdges;
+  console.log('节点', nodes)
+  console.log('边界', edges)
 
   return (
-    <div style={{ height: "200px" }}>
+    <div style={{ height: "500px", width: "600px" }}>
       <ReactFlow
         nodes={nodes}
-        onNodesChange={onNodesChange}
         edges={edges}
-        onEdgesChange={onEdgesChange}
-        fitView
       >
         <Background />
         <Controls />
