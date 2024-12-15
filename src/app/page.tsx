@@ -1,31 +1,29 @@
-import FundFlow from '../components/FundFlow';
-import Button from '../components/Button';
+import FundFlow from "../components/FundFlow";
+import Button from "../components/Button";
 
 export default function Home() {
   // 示例数据
-  const transfers = [
+  const flows = [
     {
       from: "A",
       to: "B",
-      amount: "100",
-      token: {
-        address: "U",
-        symbol: "USDT"
-      }
+      amount: 100,
+      tokenName: 'USDT',
+      token: '0xusdt'
     },
     {
       from: "B",
       to: "A",
-      amount: "99",
-      token: {
-        address: "U",
-        symbol: "USDT"
-      }
-    }
+      amount: 9,
+      tokenName: 'USDT',
+      token: '0xusdt'
+    },
   ];
 
   return (
     <div className="min-h-screen p-8">
+      <FundFlow flows={flows} />
+
       {/* 搜索区域 */}
       <div className="max-w-4xl mx-auto mb-8">
         <div className="flex gap-4">
@@ -90,14 +88,18 @@ export default function Home() {
             <div>
               <div className="mb-2">
                 <p className="text-gray-600">Function:</p>
-                <p className="font-medium">transfer(address to, uint256 amount)</p>
+                <p className="font-medium">
+                  transfer(address to, uint256 amount)
+                </p>
               </div>
               <div>
                 <p className="text-gray-600 mb-1">Parameters:</p>
                 <div className="space-y-1 pl-4">
                   <div>
                     <span className="text-gray-600">to: </span>
-                    <span className="font-medium">0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266</span>
+                    <span className="font-medium">
+                      0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+                    </span>
                   </div>
                   <div>
                     <span className="text-gray-600">amount: </span>
@@ -126,10 +128,13 @@ export default function Home() {
                 </div>
                 <div className="flex gap-2">
                   <span className="text-gray-600 w-20">Name:</span>
-                  <span className="font-medium">Transfer(address indexed from, address indexed to, uint256 value)</span>
+                  <span className="font-medium">
+                    Transfer(address indexed from, address indexed to, uint256
+                    value)
+                  </span>
                 </div>
               </div>
-              
+
               {/* Topics */}
               <div className="mb-4">
                 <p className="font-medium mb-2">Topics:</p>
@@ -182,10 +187,13 @@ export default function Home() {
                 </div>
                 <div className="flex gap-2">
                   <span className="text-gray-600 w-20">Name:</span>
-                  <span className="font-medium">Transfer(address indexed from, address indexed to, uint256 value)</span>
+                  <span className="font-medium">
+                    Transfer(address indexed from, address indexed to, uint256
+                    value)
+                  </span>
                 </div>
               </div>
-              
+
               {/* Topics */}
               <div className="mb-4">
                 <p className="font-medium mb-2">Topics:</p>
@@ -226,9 +234,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-         <FundFlow transfers={transfers} />
-
       </div>
     </div>
   );
