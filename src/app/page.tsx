@@ -2,31 +2,6 @@ import FundFlow from "../components/FundFlow";
 import Button from "../components/Button";
 
 export default function Home() {
-  // 示例数据
-  // const flows = [
-  //   {
-  //     from: "1",
-  //     to: "2",
-  //     amount: 100,
-  //     tokenName: 'USDT',
-  //     token: '0xusdt'
-  //   },
-  //   {
-  //     from: "1",
-  //     to: "4",
-  //     amount: 100,
-  //     tokenName: 'USDT',
-  //     token: '0xusdt'
-  //   },
-  //   {
-  //     from: "2",
-  //     to: "3",
-  //     amount: 9,
-  //     tokenName: 'USDT',
-  //     token: '0xusdt'
-  //   },
-  // ];
-
   return (
     <div className="min-h-screen p-8">
       {/* 搜索区域 */}
