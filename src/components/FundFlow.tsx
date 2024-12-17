@@ -1,7 +1,8 @@
 "use client";
 import { ReactFlow, Controls, Background } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { initialNodes, initialEdges } from "./nodes-edges.js";
+import { initialEdges } from "./nodes-edges.js";
+import CustomNode from './CustomNode';
 
 interface Flow {
   from: string;
@@ -61,6 +62,7 @@ interface TreeNode {
 interface FlatNode {
   id: string;
   data: { label: string };
+  type: 'custom';
   position: { x: number; y: number };
 }
 
@@ -82,7 +84,7 @@ function buildTrees(flows: Flow[]): FlatNode[] {
     .map(([node]) => node);
 
   // 从每个根节点开始构建树
-  let currentRootX = 100;
+  let currentRootX = -200;
 
   roots.forEach(rootId => {
     const root: TreeNode = {
@@ -92,7 +94,7 @@ function buildTrees(flows: Flow[]): FlatNode[] {
       children: []
     };
     nodeMap.set(rootId, root);
-    currentRootX += 200; // 下一个树的根节点x坐标
+    currentRootX += 400; // 下一个树的根节点x坐标
   });
 
   // 构建树的边
@@ -114,7 +116,7 @@ function buildTrees(flows: Flow[]): FlatNode[] {
         id: flow.to,
         data: { label: flow.to },
         position: {
-          x: parentNode.position.x + (parentNode.children?.length || 0) * 100,
+          x: parentNode.position.x + (parentNode.children?.length || 0) * 450,
           y: parentNode.position.y + 100
         },
         children: []
@@ -133,7 +135,8 @@ function buildTrees(flows: Flow[]): FlatNode[] {
     result.push({
       id: node.id,
       data: node.data,
-      position: node.position
+      position: node.position,
+      type: 'custom'
     });
 
     node.children?.forEach(child => flattenTree(child));
@@ -187,22 +190,6 @@ export function buildNodes(flows: Flow[]) {
   return nodes;
 }
 
-// const flows = [
-//   {
-//     from: "A",
-//     to: "B",
-//     amount: 100,
-//     tokenName: 'USDT',
-//     token: '0xusdt'
-//   },
-//   {
-//     from: "B",
-//     to: "A",
-//     amount: 9,
-//     tokenName: 'USDT',
-//     token: '0xusdt'
-//   },
-// ];
 
 export function buildEdges(flows: Flow[]) {
   return flows.map((flow) => ({
@@ -214,19 +201,19 @@ export function buildEdges(flows: Flow[]) {
     style: { stroke: "red" },
   }));
 }
-// interface FundFlowProps {
-//   flows: Flow[]
-// }
 
 export default function FundFlow() {
   const nodes = buildTrees(flows);
   const edges = initialEdges;
   console.log("节点", nodes);
   console.log("边界", edges);
+  const nodeTypes = {
+    custom: CustomNode,
+  };
 
   return (
-    <div style={{ height: "500px", width: "600px" }}>
-      <ReactFlow nodes={nodes} edges={edges}>
+    <div style={{ height: "500px", width: "800px" }}>
+      <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} nodesDraggable={true}>
         <Background />
         <Controls />
       </ReactFlow>
