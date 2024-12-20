@@ -1,6 +1,44 @@
 import FundFlow from "../components/FundFlow";
 import Button from "../components/Button";
+import { Flow } from "@/util/flow";
 
+const flows: Flow[] = [
+  {
+    from: "0x10ED43C718714eb63d5aA57B78B54704E256024E",
+    to: "0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE",
+    amount: 5000000000000000,
+    tokenName: "WBNB",
+    token: "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+  },
+  {
+    from: "0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE",
+    to: "0xc5a202d380028eC0dE708a09299D30342C73fDE7",
+    amount: 3572506953399170195,
+    tokenName: "USDT",
+    token: "0x55d398326f99059ff775485246999027b3197955",
+  },
+  {
+    from: "0xc5a202d380028eC0dE708a09299D30342C73fDE7",
+    to: "0x755223e5113F5d5041722ea2FB2082DC46832025",
+    amount: 16037984720716503605,
+    tokenName: "GS",
+    token: "0x755223e5113f5d5041722ea2fb2082dc46832025",
+  },
+  {
+    from: "0xc5a202d380028eC0dE708a09299D30342C73fDE7",
+    to: "0x000000000000000000000000000000000000dEaD",
+    amount: 1924558166485980432,
+    tokenName: "GS",
+    token: "0x755223e5113f5d5041722ea2fb2082dc46832025",
+  },
+  {
+    from: "0xc5a202d380028eC0dE708a09299D30342C73fDE7",
+    to: "0xD8Db782c4A3ffCb14e4928f43f01F3bC3FBe2AB0",
+    amount: 302797151527127588078,
+    tokenName: "GS",
+    token: "0x755223e5113f5d5041722ea2fb2082dc46832025",
+  },
+];
 export default function Home() {
   return (
     <div className="min-h-screen p-8">
@@ -95,7 +133,7 @@ export default function Home() {
             </div>
           </div>
 
-          <FundFlow />
+          <FundFlow flows={flows} />
         </div>
 
         {/* Event Logs */}
