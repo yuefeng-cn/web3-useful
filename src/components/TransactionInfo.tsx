@@ -24,13 +24,10 @@ export default function TransactionInfo({ txHash }: TransactionInfoProps) {
     const fetchTransactionDetails = async () => {
       try {
         setLoading(true);
-        // 这里添加你的异步请求逻辑
-        // 示例：
-        // const response = await fetch(`/api/transaction/${txHash}`);
-        // const data = await response.json();
         
-        // 模拟异步请求
-        txHash = '0xf087004579f43f9cecf1c088f23d27b9f92e55e7978d19b30059d199b372e74a'
+        if (!txHash.startsWith('0x')) {
+            throw new Error('交易哈希非法')
+        }
         const transaction = await getTransaction(txHash)
         const receipt = await getTransactionReceipt(txHash)
 

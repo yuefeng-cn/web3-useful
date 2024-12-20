@@ -1,3 +1,5 @@
+"use client"
+import { useState } from "react";
 import FundFlow from "../components/FundFlow";
 import Button from "../components/Button";
 import { Flow } from "@/util/flow";
@@ -42,6 +44,8 @@ const flows: Flow[] = [
   },
 ];
 export default function Home() {
+  const [txHash, setTxHash] = useState("");
+
   return (
     <div className="min-h-screen p-8">
       {/* 搜索区域 */}
@@ -51,6 +55,8 @@ export default function Home() {
             type="text"
             placeholder="输入交易哈希值"
             className="flex-1 p-3 border rounded-lg"
+            value={txHash}
+            onChange={(e) => setTxHash(e.target.value)}
           />
           <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             查询
@@ -63,8 +69,8 @@ export default function Home() {
         <div className="w-1/2 pr-4">
           {/* 交易详情 */}
           <div className="max-w-4xl mx-auto space-y-6">
-            <TransactionInfo txHash="0x123..." />
-            <TransactionData txHash="0x123..." />
+            <TransactionInfo txHash={txHash} />
+            <TransactionData txHash={txHash} />
           </div>
           {/* 资金流向 */}
           <FundFlow flows={flows} />
@@ -194,6 +200,64 @@ export default function Home() {
                 </div>
               </div>
 
+              {/* 第二个 Log 示例 */}
+              <div className="border rounded-lg p-4">
+                <div className="space-y-2 mb-4">
+                  <div className="flex gap-2">
+                    <span className="text-gray-600 w-20">Log Index:</span>
+                    <span className="font-medium">1</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="text-gray-600 w-20">Address:</span>
+                    <span className="font-medium">0xcontract...1234</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="text-gray-600 w-20">Name:</span>
+                    <span className="font-medium">
+                      Transfer(address indexed from, address indexed to, uint256
+                      value)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Topics */}
+                <div className="mb-4">
+                  <p className="font-medium mb-2">Topics:</p>
+                  <div className="space-y-1 pl-4">
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">0:</span>
+                      <span className="break-all">0x7d5e7bd8...</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">1:</span>
+                      <span className="break-all">0x8b3c5427...</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">2:</span>
+                      <span className="break-all">0x9a4f2d68...</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Data */}
+                <div>
+                  <p className="font-medium mb-2">Data:</p>
+                  <div className="space-y-2 pl-4">
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">0:</span>
+                      <span className="break-all">0x7d5e7bd8...</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">1:</span>
+                      <span className="break-all">0x8b3c5427...</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">2:</span>
+                      <span className="break-all">0x9a4f2d68...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
               {/* 第二个 Log 示例 */}
               <div className="border rounded-lg p-4">
                 <div className="space-y-2 mb-4">
