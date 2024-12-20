@@ -2,6 +2,7 @@
 import { getTransaction, getTransactionReceipt } from "@/web3/transacion";
 import Button from "./Button";
 import { useEffect, useState } from "react";
+import { useRPC } from "@/context/RPCContext";
 
 interface TransactionInfoProps {
   txHash: string;
@@ -18,6 +19,7 @@ interface TransactionDetails {
 export default function TransactionInfo({ txHash }: TransactionInfoProps) {
   const [txDetails, setTxDetails] = useState<TransactionDetails | null>(null);
   const [loading, setLoading] = useState(true);
+  const { rpcUrl } = useRPC();
 
   useEffect(() => {
     // 定义异步函数
@@ -28,8 +30,10 @@ export default function TransactionInfo({ txHash }: TransactionInfoProps) {
         if (!txHash.startsWith('0x')) {
             throw new Error('交易哈希非法')
         }
-        const transaction = await getTransaction(txHash)
-        const receipt = await getTransactionReceipt(txHash)
+        
+        console.log(rpcUrl)
+        const transaction = await getTransaction(rpcUrl, txHash)
+        const receipt = await getTransactionReceipt(rpcUrl, txHash)
 
         let status = transaction?.isMined() ? 'pending' : '成功'
         status = receipt?.status === 1 ? '成功' : '失败'
@@ -67,7 +71,7 @@ export default function TransactionInfo({ txHash }: TransactionInfoProps) {
   if (!txDetails) {
     return (
       <div className="bg-white p-6 rounded-lg shadow">
-        <p>获取交易详情失败</p>
+        <p>未获取到数据</p>
       </div>
     );
   }

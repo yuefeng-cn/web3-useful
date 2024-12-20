@@ -1,4 +1,5 @@
 "use client"
+import { useRPC } from "@/context/RPCContext";
 import { getTransaction } from "@/web3/transacion";
 import { useEffect, useState } from "react";
 
@@ -18,6 +19,8 @@ interface TransactionDataDetails {
 export default function TransactionData({ txHash }: TransactionDataProps) {
   const [txData, setTxData] = useState<TransactionDataDetails | null>(null);
   const [loading, setLoading] = useState(true);
+  const { rpcUrl } = useRPC();
+
 
   useEffect(() => {
     const fetchTransactionData = async () => {
@@ -27,7 +30,8 @@ export default function TransactionData({ txHash }: TransactionDataProps) {
         if (!txHash.startsWith('0x')) {
             throw new Error('交易哈希非法')
         }
-        const transaction = await getTransaction(txHash);
+        console.log(rpcUrl)
+        const transaction = await getTransaction(rpcUrl, txHash);
         
         // TODO functionName和parameters暂时假数据
         const data: TransactionDataDetails = {
@@ -61,7 +65,7 @@ export default function TransactionData({ txHash }: TransactionDataProps) {
   if (!txData) {
     return (
       <div className="bg-white p-6 rounded-lg shadow">
-        <p>获取交易数据失败</p>
+        <p>未获取到数据</p>
       </div>
     );
   }

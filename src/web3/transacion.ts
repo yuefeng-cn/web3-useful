@@ -8,17 +8,17 @@ function getProvider(rpc: string) {
     return new ethers.JsonRpcProvider(rpc)
 }
 
-export async function getTransaction(txHash: string) {
-    return await getProvider(provider).getTransaction(txHash)
+export async function getTransaction(rpc: string, txHash: string) {
+    return await getProvider(rpc).getTransaction(txHash)
 }
-export async function getTransactionReceipt(txHash: string) {
-    return await getProvider(provider).getTransactionReceipt(txHash)
+export async function getTransactionReceipt(rpc: string, txHash: string) {
+    return await getProvider(rpc).getTransactionReceipt(txHash)
 }
 
-export async function getTokenInfo(tokenAddress: string, chainId: number) {
+export async function getTokenInfo(rpc: string, tokenAddress: string, chainId: number) {
     if (chainId === 1) {
         const abi = ERC20ABI
-        const contract = new ethers.Contract(tokenAddress, abi, getProvider(provider))
+        const contract = new ethers.Contract(tokenAddress, abi, getProvider(rpc))
         const name = await contract.name()
         const decimals = await contract.decimals()
         return {
