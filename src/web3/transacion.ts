@@ -2,7 +2,7 @@ import { ERC20ABI } from '@/abi/ERC20'
 import { ethers } from 'ethers'
 
 
-const provider = 'http://10.8.6.153/2700'
+const provider = 'http://10.8.6.153:2510'
 
 function getProvider(rpc: string) {
     return new ethers.JsonRpcProvider(rpc)

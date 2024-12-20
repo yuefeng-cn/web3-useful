@@ -1,6 +1,7 @@
 import FundFlow from "../components/FundFlow";
 import Button from "../components/Button";
 import { Flow } from "@/util/flow";
+import TransactionInfo from "../components/TransactionInfo";
 
 const flows: Flow[] = [
   {
@@ -57,41 +58,12 @@ export default function Home() {
       </div>
 
       <div className="flex">
-        {/* 资金流向 */}
+      
         <div className="w-1/2 pr-4">
           {/* 交易详情 */}
           <div className="max-w-4xl mx-auto space-y-6">
-            {/* 基本信息 */}
-            <div className="bg-white p-6 rounded-lg shadow">
-              <h2 className="text-xl font-bold mb-4">交易详情</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex gap-2">
-                  <p className="text-gray-600">交易状态:</p>
-                  <p className="font-medium">成功</p>
-                </div>
-                <div className="flex gap-2">
-                  <p className="text-gray-600">交易时间:</p>
-                  <p className="font-medium">2024-03-20 14:30:45</p>
-                </div>
-                <div className="flex gap-2">
-                  <p className="text-gray-600">区块高度:</p>
-                  <p className="font-medium">18234567</p>
-                </div>
-                <div className="flex gap-2">
-                  <p className="text-gray-600">区块哈希:</p>
-                  <p className="font-medium truncate">0x1234...5678</p>
-                </div>
-                <div className="flex gap-2">
-                  <p className="text-gray-600">From:</p>
-                  <p className="font-medium truncate">0xabcd...efgh</p>
-                </div>
-                <div className="flex gap-2">
-                  <p className="text-gray-600">To:</p>
-                  <p className="font-medium truncate">0xijkl...mnop</p>
-                  <Button toAddress="0xijkl...mnop" />
-                </div>
-              </div>
-            </div>
+            {/* 使用新组件替换原有的基本信息部分 */}
+            <TransactionInfo txHash="0x123..." />
 
             {/* 交易Data */}
             <div className="bg-white p-6 rounded-lg shadow">
@@ -132,7 +104,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-
+          {/* 资金流向 */}
           <FundFlow flows={flows} />
         </div>
 
@@ -260,6 +232,64 @@ export default function Home() {
                 </div>
               </div>
 
+              {/* 第二个 Log 示例 */}
+              <div className="border rounded-lg p-4">
+                <div className="space-y-2 mb-4">
+                  <div className="flex gap-2">
+                    <span className="text-gray-600 w-20">Log Index:</span>
+                    <span className="font-medium">1</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="text-gray-600 w-20">Address:</span>
+                    <span className="font-medium">0xcontract...1234</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="text-gray-600 w-20">Name:</span>
+                    <span className="font-medium">
+                      Transfer(address indexed from, address indexed to, uint256
+                      value)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Topics */}
+                <div className="mb-4">
+                  <p className="font-medium mb-2">Topics:</p>
+                  <div className="space-y-1 pl-4">
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">0:</span>
+                      <span className="break-all">0x7d5e7bd8...</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">1:</span>
+                      <span className="break-all">0x8b3c5427...</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">2:</span>
+                      <span className="break-all">0x9a4f2d68...</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Data */}
+                <div>
+                  <p className="font-medium mb-2">Data:</p>
+                  <div className="space-y-2 pl-4">
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">0:</span>
+                      <span className="break-all">0x7d5e7bd8...</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">1:</span>
+                      <span className="break-all">0x8b3c5427...</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-gray-600 w-8">2:</span>
+                      <span className="break-all">0x9a4f2d68...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
               {/* 第二个 Log 示例 */}
               <div className="border rounded-lg p-4">
                 <div className="space-y-2 mb-4">

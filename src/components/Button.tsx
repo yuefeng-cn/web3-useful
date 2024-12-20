@@ -16,7 +16,7 @@ const Button: React.FC<ButtonProps> = ({ toAddress }) => {
       className="ml-2 px-3 py-1 bg-blue-500 text-white rounded"
       onClick={handleClick}
     >
-      查看源码
+      see
     </button>
   );
 };
